@@ -10,3 +10,5 @@ Examples of appropriate use:
 - Alternative approaches you considered but did not implement
 
 Do not repeat information already included in `submission_template.md`.
+
+Remove the content of this file and write your notes.
