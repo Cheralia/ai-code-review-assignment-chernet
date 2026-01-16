@@ -1,14 +1,12 @@
-# Notes (Optional)
+# Notes 
+This file provides additional context and assumptions for the reviewer that do not fit cleanly in `submission_template.md`.
 
-This file is optional.
+---
 
-Use it only if you want to provide **additional context** for the reviewer that does not fit cleanly in `submission_template.md`.
+## Task 1 — Average Order Value
+- Assumption: Orders without a `"status"` key are treated as valid (non-cancelled) orders.
+- Known limitation: Orders with non-numeric `"amount"` values that cannot be converted to float are ignored, rather than raising an error.
+- Alternative considered: Raising an exception for invalid amounts, but skipped to maintain robustness in real-world datasets.
 
-Examples of appropriate use:
-- Assumptions you made
-- Known limitations of your solution
-- Alternative approaches you considered but did not implement
+---
 
-Do not repeat information already included in `submission_template.md`.
-
-Remove the contents of this file and write your notes.

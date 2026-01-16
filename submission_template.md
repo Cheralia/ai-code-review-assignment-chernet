@@ -1,7 +1,7 @@
 # AI Code Review Assignment (Python)
 
 ## Candidate
-- Name:
+- Name: Chernet Erdachew
 - Approximate time spent:
 
 ---
@@ -10,17 +10,23 @@
 
 ## 1) Code Review Findings
 ### Critical bugs
-- 
+- Divides by total number of orders, including cancelled ones, leading to incorrect averages.
+- Raises ZeroDivisionError when input list is empty or when all orders are cancelled.
 
 ### Edge cases & risks
-- 
+- Orders with missing or non-numeric "amount" values cause runtime errors.
+- Orders missing the "status" key are not handled safely.
 
 ### Code quality / design issues
-- 
+- No validation or error handling.
+- Poor variable naming (`count` vs. actual number of valid orders).
 
 ## 2) Proposed Fixes / Improvements
 ### Summary of changes
-- 
+- Count only non-cancelled orders.
+- Safely handle missing or invalid data.
+- Avoid division by zero.
+- Use float conversion defensively.
 
 ### Corrected code
 See `correct_task1.py`
@@ -28,7 +34,14 @@ See `correct_task1.py`
 > Note: The original AI-generated code is preserved in `task1.py`.
 
  ### Testing Considerations
-If you were to test this function, what areas or scenarios would you focus on, and why?
+To ensure `calculate_average_order_value` works correctly and safely in all realistic scenarios, I would focus on the following areas:
+- Empty list input: Confirm the function handles empty datasets without crashing and returns 0.0 as expected.
+- All orders cancelled: Ensure cancelled orders are excluded and the average correctly returns 0.0.
+- Mixed valid and invalid amounts: Verify that only non-cancelled orders are counted and the average is correct.
+- Orders with missing "status" key: Confirm that orders missing the "status" key are treated as valid, preventing KeyError crashes.
+- Orders with invalid "amount" values: Ensure the function safely ignores non-numeric amounts without crashing.
+- Orders with floating-point amounts: Confirm that float amounts are handled correctly in the average calculation.
+see `test_task1.py`
 
 
 ## 3) Explanation Review & Rewrite
