@@ -16,3 +16,10 @@ This file provides additional context and assumptions for the reviewer that do n
 - Alternative considered: Using the `email` standard library (`email.utils.parseaddr`) for stricter validation, but regex was chosen for simplicity and readability.
 
 ---
+
+## Task 3 — Aggregate Valid Measurements
+- Assumption: Only values that can safely convert to float are considered valid measurements.
+- Known limitation: Non-numeric strings or objects are skipped silently, which may hide data issues.
+- Alternative considered: Returning `None` or raising an error if no valid measurements exist, but returning `0.0` is safer for numeric pipelines.
+
+---

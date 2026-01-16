@@ -121,17 +121,23 @@ see `test_task2.py`
 
 ## 1) Code Review Findings
 ### Critical bugs
-- 
+- Divides by total input length instead of count of valid values.
+- Raises ZeroDivisionError when input is empty or all values are None.
+- Crashes on non-numeric, non-None values.
 
 ### Edge cases & risks
-- 
+- Mixed types (e.g., strings, objects).
+- Empty list input.
 
 ### Code quality / design issues
-- 
+- No defensive programming.
+- Misleading variable naming (`count` vs. valid count).
 
 ## 2) Proposed Fixes / Improvements
 ### Summary of changes
-- 
+- Count only valid numeric values.
+- Use try/except for safe float conversion.
+- Return 0.0 if no valid values exist.
 
 ### Corrected code
 See `correct_task3.py`
@@ -139,7 +145,15 @@ See `correct_task3.py`
 > Note: The original AI-generated code is preserved in `task3.py`.
 
 ### Testing Considerations
-If you were to test this function, what areas or scenarios would you focus on, and why?
+- Empty input list: Confirm the function returns 0.0 without crashing when no measurements are provided.
+- All None values: Verify that None values are ignored and the function correctly returns 0.0 when no valid measurements exist.
+- All valid numeric values: Ensure the average is calculated correctly with all valid numeric inputs.
+- Mixed valid numbers and None: Confirm that None values are ignored and only valid numbers are averaged.
+- String representations of numbers: Check that numeric strings are correctly converted to float and included in the average.
+- Invalid non-numeric values: Ensure invalid values are skipped without causing crashes.
+- Negative numbers and zeros: Confirm the function correctly handles negative numbers and zero in the average calculation.
+
+see `test_task3.py`
 
 
 ## 3) Explanation Review & Rewrite
@@ -147,12 +161,13 @@ If you were to test this function, what areas or scenarios would you focus on, a
 > This function calculates the average of valid measurements by ignoring missing values (None) and averaging the remaining values. It safely handles mixed input types and ensures an accurate average
 
 ### Issues in original explanation
-- 
+- Function does not actually handle mixed types safely.
+- Average calculation is incorrect when None values are present.
 
 ### Rewritten explanation
-- 
+- This function computes the average of all valid numeric measurements by ignoring None values and safely converting numeric inputs to floats. It handles mixed input types gracefully and returns 0.0 when no valid values are present.
 
 ## 4) Final Judgment
-- Decision: Approve / Request Changes / Reject
-- Justification:
-- Confidence & unknowns:
+- Decision: Request Changes
+- Justification: Original implementation is incorrect and unsafe for common inputs.
+- Confidence & unknowns: High confidence after corrections.
