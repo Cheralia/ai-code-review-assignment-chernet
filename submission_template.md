@@ -2,7 +2,7 @@
 
 ## Candidate
 - Name: Chernet Erdachew
-- Approximate time spent:
+- Approximate time spent: 50 minute
 
 ---
 
