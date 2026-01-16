@@ -10,3 +10,9 @@ This file provides additional context and assumptions for the reviewer that do n
 
 ---
 
+## Task 2 — Count Valid Emails
+- Assumption: Simple regex validation is sufficient; we do not strictly enforce full RFC 5322 compliance.
+- Known limitation: Emails with unusual but technically valid formats (e.g., quotes, comments) may be rejected.
+- Alternative considered: Using the `email` standard library (`email.utils.parseaddr`) for stricter validation, but regex was chosen for simplicity and readability.
+
+---

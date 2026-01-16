@@ -41,6 +41,7 @@ To ensure `calculate_average_order_value` works correctly and safely in all real
 - Orders with missing "status" key: Confirm that orders missing the "status" key are treated as valid, preventing KeyError crashes.
 - Orders with invalid "amount" values: Ensure the function safely ignores non-numeric amounts without crashing.
 - Orders with floating-point amounts: Confirm that float amounts are handled correctly in the average calculation.
+
 see `test_task1.py`
 
 
@@ -49,15 +50,16 @@ see `test_task1.py`
 > This function calculates average order value by summing the amounts of all non-cancelled orders and dividing by the number of orders. It correctly excludes cancelled orders from the calculation.
 
 ### Issues in original explanation
-- 
+- Claims correctness while dividing by total orders instead of valid orders.
+- Does not mention error cases or invalid data handling.
 
 ### Rewritten explanation
-- 
+- This function computes the average value of all non-cancelled orders by summing their valid numeric amounts and dividing by the count of such orders. It safely handles empty inputs, missing fields, and invalid data, returning 0.0 when no valid orders exist.
 
 ## 4) Final Judgment
-- Decision: Approve / Request Changes / Reject
-- Justification:
-- Confidence & unknowns:
+- Decision: Request Changes
+- Justification: Original implementation produces incorrect results and can crash on valid inputs.
+- Confidence & unknowns: High confidence after fixes; no major unknowns.
 
 ---
 
@@ -65,17 +67,21 @@ see `test_task1.py`
 
 ## 1) Code Review Findings
 ### Critical bugs
-- 
+- Treats any string containing "@" as a valid email, which is incorrect.
 
 ### Edge cases & risks
-- 
+- Accepts invalid formats like "@", "a@", "@b", or "a@b".
+- Does not handle non-string inputs.
 
 ### Code quality / design issues
-- 
+- Lacks validation logic.
+- No input type checking
 
 ## 2) Proposed Fixes / Improvements
 ### Summary of changes
-- 
+- Use a regular expression to validate email format.
+- Ignore non-string values.
+- Handle empty input safely.
 
 ### Corrected code
 See `correct_task2.py`
@@ -84,22 +90,30 @@ See `correct_task2.py`
 
 
 ### Testing Considerations
-If you were to test this function, what areas or scenarios would you focus on, and why?
+- Empty list: Confirm the function returns 0 without crashing when no emails are provided.
+- All valid emails: Verify the function correctly counts all valid emails.
+- All invalid emails: Ensure the function correctly ignores invalid email formats and returns 0.
+- Mixed valid and invalid emails: Confirm that only valid emails are counted, ignoring invalid ones.
+- Non-string inputs: Check that the function safely ignores non-string types without crashing.
+- Emails with leading/trailing whitespace: Verify that improperly formatted emails with whitespace are treated as invalid, maintaining strict validation.
+
+see `test_task2.py`
 
 ## 3) Explanation Review & Rewrite
 ### AI-generated explanation (original)
 > This function counts the number of valid email addresses in the input list. It safely ignores invalid entries and handles empty input correctly.
 
 ### Issues in original explanation
-- 
+- Incorrectly claims validity checking is done.
+- Overstates safety and correctness.
 
 ### Rewritten explanation
-- 
+- This function counts the number of syntactically valid email addresses in the input list using a regular expression. It safely ignores invalid formats, non-string values, and handles empty input by returning 0.
 
 ## 4) Final Judgment
-- Decision: Approve / Request Changes / Reject
-- Justification:
-- Confidence & unknowns:
+- Decision: Request Changes
+- Justification: Original logic is fundamentally incorrect for email validation.
+- Confidence & unknowns: High confidence after regex-based fix.
 
 ---
 
